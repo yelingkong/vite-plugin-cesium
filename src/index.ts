@@ -22,9 +22,9 @@ export default function vitePluginCesium(options: VitePluginCesiumOptions = {}):
     cesiumBuildPath = 'node_modules/cesium/Build/Cesium/'
   } = options;
 
+  let base: string = '/';
   let CESIUM_BASE_URL = 'cesium/';
   let outDir = 'dist';
-  let base: string = '/';
   let isBuild: boolean = false;
 
   return {
@@ -43,7 +43,7 @@ export default function vitePluginCesium(options: VitePluginCesiumOptions = {}):
           outDir = c.build.outDir;
         }
       }
-      CESIUM_BASE_URL = path.posix.join(base, CESIUM_BASE_URL);
+      CESIUM_BASE_URL = base + CESIUM_BASE_URL;
       const userConfig: UserConfig = {};
       if (!isBuild) {
         // -----------dev-----------
@@ -80,7 +80,7 @@ export default function vitePluginCesium(options: VitePluginCesiumOptions = {}):
       const cesiumPath = path.join(cesiumBuildRootPath, devMinifyCesium ? 'Cesium' : 'CesiumUnminified');
       middlewares.use(path.posix.join('/', CESIUM_BASE_URL), serveStatic(cesiumPath, {
         setHeaders: (res, path, stat) => {
-          res.setHeader('Access-Control-Allow-Origin', '*')
+          res.setHeader('Access-Control-Allow-Origin', '*');
         }
       }));
     },
@@ -107,7 +107,7 @@ export default function vitePluginCesium(options: VitePluginCesiumOptions = {}):
           tag: 'link',
           attrs: {
             rel: 'stylesheet',
-            href: normalizePath(path.join(CESIUM_BASE_URL, 'Widgets/widgets.css')),
+            href: normalizePath(path.join(CESIUM_BASE_URL, 'Widgets/widgets.css'))
           }
         }
       ];
@@ -115,7 +115,7 @@ export default function vitePluginCesium(options: VitePluginCesiumOptions = {}):
         tags.push({
           tag: 'script',
           attrs: {
-            src: normalizePath(path.join(CESIUM_BASE_URL, 'Cesium.js')),
+            src: normalizePath(path.join(CESIUM_BASE_URL, 'Cesium.js'))
           }
         });
       }
