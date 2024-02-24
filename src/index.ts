@@ -107,7 +107,7 @@ export default function vitePluginCesium(options: VitePluginCesiumOptions = {}):
           tag: 'link',
           attrs: {
             rel: 'stylesheet',
-            href: normalizePath(path.join(CESIUM_BASE_URL, 'Widgets/widgets.css'))
+            href: CESIUM_BASE_URL + 'Widgets/widgets.css'
           }
         }
       ];
@@ -115,7 +115,7 @@ export default function vitePluginCesium(options: VitePluginCesiumOptions = {}):
         tags.push({
           tag: 'script',
           attrs: {
-            src: normalizePath(path.join(CESIUM_BASE_URL, 'Cesium.js'))
+            src: CESIUM_BASE_URL + 'Cesium.js'
           }
         });
       }
